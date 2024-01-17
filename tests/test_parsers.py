@@ -4,9 +4,9 @@
 from seqparser import (
         FastaParser,
         FastqParser)
-fa_data = open('/Users/maddieblaauw/Downloads/HW1-FAST-AQ-Parser-main/data/test.fa', "r")
+fa_data = open(test.fa, "r")
 fa_data=fa_data.read
-fq_data = open('/Users/maddieblaauw/Downloads/HW1-FAST-AQ-Parser-main/data/test.fq', "r")
+fq_data = open(test.fq, "r")
 fq_data=fq_data.read
 
 import pytest
