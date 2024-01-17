@@ -34,11 +34,11 @@ def test_FastaParser():
     provided in /tests/bad.fa and /tests/empty.fa
     """
     FastaParser(test.fa)
-        line = raw_input("Please provide some info: ")
-        if not re.match(" A C T G", line):
-            print "Error! Only letters *space* A C T G allowed!"
-            else assert True
-            sys.exit()   
+    if not re.match(" A C T G", line):
+        print ("Error! Only letters *space* A C T G allowed!")
+    else: 
+        assert True
+    sys.exit()   
     pass
 
 def test_FastaFormat():
@@ -48,9 +48,10 @@ def test_FastaFormat():
     """
 
     FastaParser(test.fq)
-    if seq_name=="None"
+    if seq_name=="None":
         assert True
-    else print "fail"
+    else: 
+        print ("fail")
    
     pass
 
@@ -62,11 +63,11 @@ def test_FastqParser():
     in the example Fastq File.
     """
     FastaParser(test.fq)
-        line = raw_input("Please provide some info: ")
-        if not re.match(" A C T G", seq):
-            print "Error! Only letters *space* A C T G allowed!"
-            else assert True
-            sys.exit()   
+    if not re.match(" A C T G", seq):
+        print ("Error! Only letters *space* A C T G allowed!")
+    else: 
+        assert True
+    sys.exit()   
     pass
 
 def test_FastqFormat():
@@ -78,5 +79,5 @@ def test_FastqFormat():
     if seq_name=="None":
         assert True
     else: 
-        print "fail"
+        print ("fail")
     pass
