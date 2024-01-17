@@ -1,7 +1,10 @@
 # write tests for transcribe functions
 import pytest
 import re
-
+fa = open('/Users/maddieblaauw/Downloads/HW1-FAST-AQ-Parser-main/data/test.fa', "r")
+fa=fa.read
+fq = open('/Users/maddieblaauw/Downloads/HW1-FAST-AQ-Parser-main/data/test.fq', "r")
+fq=fq.read
 
 from seqparser import (
         transcribe,
@@ -31,7 +34,7 @@ def round_half_up(n, decimals=0):
 
 def test_transcribe():
     #fasta
-    FastaParser(test.fa)
+    FastaParser()
     line=old_line
     transcribe(test.fa)
     if len(line)>0:
@@ -41,7 +44,7 @@ def test_transcribe():
         
     
     #fastq
-    FastqParser(test.fq)
+    FastqParser()
     seq=old_line
     transcribe(test.fq)
     if len(seq)>0:
@@ -54,7 +57,7 @@ def test_transcribe():
 
 def test_reverse_transcribe():
     #fasta
-    FastaParser(test.fa)
+    FastaParser()
     line=old_line
     reverse_transcribe(test.fa)
     if len(line)>0:
@@ -63,7 +66,7 @@ def test_reverse_transcribe():
         assert nucleotide==line[round_half_up(len(line)/2)-round_half_up(old_line[len/2])]
     
     #fastq
-    FastqParser(test.fq)
+    FastqParser()
     seq=old_line
     reverse_transcribe(test.fq)
     if len(seq)>0:
