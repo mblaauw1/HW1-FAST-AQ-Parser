@@ -1,15 +1,14 @@
 # write tests for transcribe functions
 import pytest
 import re
-fa = open('/Users/maddieblaauw/Downloads/HW1-FAST-AQ-Parser-main/data/test.fa', "r")
-fa=fa.read
-fq = open('/Users/maddieblaauw/Downloads/HW1-FAST-AQ-Parser-main/data/test.fq', "r")
-fq=fq.read
+import math
 
 from seqparser import (
         transcribe,
         reverse_transcribe)
 
+TRANSCRIPTION_MAPPING = {"A": "U", "C": "G", "T": "A", "G": "C"}
+ALLOWED_NUC = TRANSCRIPTION_MAPPING.keys()
 
 def test_freebie_transcribe_1():
     """
@@ -28,50 +27,104 @@ def test_freebie_transcribe_2():
 
 
 #Rounding function
-def round_half_up(n, decimals=0):
-    multiplier = 10**decimals
-    return math.floor(n * multiplier + 0.5) / multiplier
 
-def test_transcribe():
+def test_transcribe(test_data_fa,test_data_fq):
     #fasta
-    FastaParser()
-    line=old_line
-    transcribe(test.fa)
-    if len(line)>0:
-        nucleotide=old_line[round_half_up(old_line[len/2])]
-        TRANSCRIPTION_MAPPING.get("nucleotide")
-        assert nucleotide==line[round_half_up(old_line[len/2])]
+    parser_obj=FastaParser(test_data_fa)
+    file_lines = [record for record in parser_obj]
+    max_distance=len(file_lines)-1
+    random_spot=randint(0,max_distance)
+    random_position=file_lines[random_spot]
+    sequence_random_position=random_position[1]
+    #half_length = len(sequence_random_position)/2
+    #rounded_number=round_half_up(half_length)
+    
+    
+    transcription=transcribe(sequence_random_position)
+    #print(transcription[10])
+    if len(sequence_random_position)>0:
+        max_distance=len(sequence_random_position)-1
+        random_nucleotide_spot=randint(0,max_distance)
+        print(random_nucleotide_spot)
+        print(TRANSCRIPTION_MAPPING.get(sequence_random_position[random_nucleotide_spot],""))
+        random_nucleotide=transcription[random_nucleotide_spot]
+        actual_nucleotide=TRANSCRIPTION_MAPPING.get(sequence_random_position[random_nucleotide_spot],"")
+        assert random_nucleotide==actual_nucleotide
         
     
     #fastq
-    FastqParser()
-    seq=old_line
-    transcribe(test.fq)
-    if len(seq)>0:
-        nucleotide=old_line[round_half_up(old_line[len/2])]
-        TRANSCRIPTION_MAPPING.get("nucleotide")
-        assert nucleotide==seq[round_half_up(old_line[len/2])]
+    parser_obj=FastqParser(test_data_fq)
+    file_lines = [record for record in parser_obj]
+    max_distance=len(file_lines)-1
+    random_spot=randint(0,max_distance)
+    random_position=file_lines[random_spot]
+    sequence_random_position=random_position[1]
+    #half_length = len(sequence_random_position)/2
+    #rounded_number=round_half_up(half_length)
+    
+    
+    transcription=transcribe(sequence_random_position)
+    #print(transcription[10])
+    if len(sequence_random_position)>0:
+        max_distance=len(sequence_random_position)-1
+        random_nucleotide_spot=randint(0,max_distance)
+        print(random_nucleotide_spot)
+        print(TRANSCRIPTION_MAPPING.get(sequence_random_position[random_nucleotide_spot],""))
+        random_nucleotide=transcription[random_nucleotide_spot]
+        actual_nucleotide=TRANSCRIPTION_MAPPING.get(sequence_random_position[random_nucleotide_spot],"")
+        assert random_nucleotide==actual_nucleotide
         
     pass
 
-
-def test_reverse_transcribe():
+def test_reverse_transcribe(test_data_fa,test_data_fq):
     #fasta
-    FastaParser()
-    line=old_line
-    reverse_transcribe(test.fa)
-    if len(line)>0:
-        nucleotide=old_line[round_half_up(len(line)/2)-round_half_up(old_line[len/2])]
-        TRANSCRIPTION_MAPPING.get("nucleotide")
-        assert nucleotide==line[round_half_up(len(line)/2)-round_half_up(old_line[len/2])]
+    parser_obj=FastaParser(test_data_fa)
+    file_lines = [record for record in parser_obj]
+    max_distance=len(file_lines)-1
+    random_spot=randint(0,max_distance)
+    random_position=file_lines[random_spot]
+    sequence_random_position=random_position[1]
+    #half_length = len(sequence_random_position)/2
+    #rounded_number=round_half_up(half_length)
     
+    
+    reverse_transcription=reverse_transcribe(sequence_random_position)
+    print(sequence_random_position)
+    print(reverse_transcription)
+    if len(sequence_random_position)>0:
+        max_distance=len(sequence_random_position)-1
+        random_nucleotide_spot=randint(0,max_distance)
+        print(random_nucleotide_spot)
+        print(TRANSCRIPTION_MAPPING.get(sequence_random_position[max_distance-random_nucleotide_spot],""))
+        random_nucleotide=reverse_transcription[random_nucleotide_spot]
+        print(random_nucleotide)
+        #print(random_nucleotide)
+        actual_nucleotide=TRANSCRIPTION_MAPPING.get((sequence_random_position[max_distance-random_nucleotide_spot]),"")
+        assert random_nucleotide==actual_nucleotide
+        
     #fastq
-    FastqParser()
-    seq=old_line
-    reverse_transcribe(test.fq)
-    if len(seq)>0:
-        nucleotide=old_line[round_half_up(len(seq)/2)-round_half_up(old_line[len/2])]
-        TRANSCRIPTION_MAPPING.get("nucleotide")
-        assert nucleotide==seq[round_half_up(len(seq)/2)-round_half_up(old_line[len/2])]
+    parser_obj=FastqParser(test_data_fq)
+    file_lines = [record for record in parser_obj]
+    max_distance=len(file_lines)-1
+    random_spot=randint(0,max_distance)
+    random_position=file_lines[random_spot]
+    sequence_random_position=random_position[1]
+    #half_length = len(sequence_random_position)/2
+    #rounded_number=round_half_up(half_length)
     
+    
+    reverse_transcription=reverse_transcribe(sequence_random_position)
+    #print(transcription[10])
+    if len(sequence_random_position)>0:
+        max_distance=len(sequence_random_position)-1
+        random_nucleotide_spot=randint(0,max_distance)
+        print(random_nucleotide_spot)
+        print(TRANSCRIPTION_MAPPING.get(sequence_random_position[max_distance-random_nucleotide_spot],""))
+        random_nucleotide=reverse_transcription[random_nucleotide_spot]
+        actual_nucleotide=TRANSCRIPTION_MAPPING.get(sequence_random_position[max_distance-random_nucleotide_spot],"")
+        assert random_nucleotide==actual_nucleotide
+        
     pass
+
+test_transcribe('data/test.fa','data/test.fq')
+test_reverse_transcribe('data/test.fa','data/test.fq')
