@@ -47,7 +47,7 @@ def test_FastaParser(test_data):
     provided in /tests/bad.fa and /tests/empty.fa
     """
     #line=randint(0,1000)
-    parser_obj=FastaParser(test_data)
+    parser_obj=FastaParser(test_data[0])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -77,7 +77,7 @@ def test_data(request):
 
 @pytest.mark.parametrize("test_data", [('data/test.fa',)], indirect=True)
 def test_FastaFormat(test_data):
-    parser_obj=FastaParser(test_data)
+    parser_obj=FastaParser(test_data[0])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -117,7 +117,7 @@ def test_FastqParser(test_data):
     provided in /tests/bad.fa and /tests/empty.fa
     """
     #line=randint(0,1000)
-    parser_obj=FastqParser(test_data)
+    parser_obj=FastqParser(test_data[0])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -148,7 +148,7 @@ def test_data(request):
 
 @pytest.mark.parametrize("test_data", [('data/test.fq',)], indirect=True)
 def test_FastqFormat(test_data):
-    parser_obj=FastqParser(test_data)
+    parser_obj=FastqParser(test_data[0])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
