@@ -2,10 +2,12 @@
 import pytest
 import re
 import math
+from random import randint
+#from parse import (FastaParser, FastqParser)
 
 from seqparser import (
         transcribe,
-        reverse_transcribe)
+        reverse_transcribe, FastaParser,FastqParser)
 
 TRANSCRIPTION_MAPPING = {"A": "U", "C": "G", "T": "A", "G": "C"}
 ALLOWED_NUC = TRANSCRIPTION_MAPPING.keys()
