@@ -12,6 +12,11 @@ from seqparser import (
 TRANSCRIPTION_MAPPING = {"A": "U", "C": "G", "T": "A", "G": "C"}
 ALLOWED_NUC = TRANSCRIPTION_MAPPING.keys()
 
+
+import pytest
+
+
+
 def test_freebie_transcribe_1():
     """
     This one is a freebie
@@ -29,10 +34,15 @@ def test_freebie_transcribe_2():
 
 
 #Rounding function
+@pytest.fixture
+def test_data(request):
+    fa_path, fq_path = request.param
+    return fa_path, fq_path
 
-def test_transcribe(test_data_fa,test_data_fq):
+@pytest.mark.parametrize("test_data", [('data/test.fa', 'data/test.fq')], indirect=True)
+def test_transcribe(test_data):
     #fasta
-    parser_obj=FastaParser(test_data_fa)
+    parser_obj=FastaParser(test_data[0])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -55,7 +65,7 @@ def test_transcribe(test_data_fa,test_data_fq):
         
     
     #fastq
-    parser_obj=FastqParser(test_data_fq)
+    parser_obj=FastqParser(test_data[1])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -78,9 +88,16 @@ def test_transcribe(test_data_fa,test_data_fq):
         
     pass
 
-def test_reverse_transcribe(test_data_fa,test_data_fq):
+
+@pytest.fixture
+def test_data(request):
+    fa_path, fq_path = request.param
+    return fa_path, fq_path
+
+@pytest.mark.parametrize("test_data", [('data/test.fa', 'data/test.fq')], indirect=True)
+def test_reverse_transcribe(test_data):
     #fasta
-    parser_obj=FastaParser(test_data_fa)
+    parser_obj=FastaParser(test_data[0])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -105,7 +122,7 @@ def test_reverse_transcribe(test_data_fa,test_data_fq):
         assert random_nucleotide==actual_nucleotide
         
     #fastq
-    parser_obj=FastqParser(test_data_fq)
+    parser_obj=FastqParser(test_data[1])
     file_lines = [record for record in parser_obj]
     max_distance=len(file_lines)-1
     random_spot=randint(0,max_distance)
@@ -128,5 +145,5 @@ def test_reverse_transcribe(test_data_fa,test_data_fq):
         
     pass
 
-test_transcribe('data/test.fa','data/test.fq')
-test_reverse_transcribe('data/test.fa','data/test.fq')
+#test_transcribe('data/test.fa','data/test.fq')
+#test_reverse_transcribe('data/test.fa','data/test.fq')

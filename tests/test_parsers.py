@@ -25,7 +25,13 @@ def test_freebie_parser_2():
     """
     assert 1 != 2
 
-        
+
+@pytest.fixture
+def test_data(request):
+    fa_path = request.param
+    return fa_path
+
+@pytest.mark.parametrize("test_data", [('data/test.fa',)], indirect=True)
 def test_FastaParser(test_data):
     num_A=0
     num_C=0
@@ -64,6 +70,12 @@ def test_FastaParser(test_data):
   
     pass
 
+@pytest.fixture
+def test_data(request):
+    fa_path = request.param
+    return fa_path
+
+@pytest.mark.parametrize("test_data", [('data/test.fa',)], indirect=True)
 def test_FastaFormat(test_data):
     parser_obj=FastaParser(test_data)
     file_lines = [record for record in parser_obj]
@@ -84,7 +96,12 @@ def test_FastaFormat(test_data):
         #assert 1==1
 
 
+@pytest.fixture
+def test_data(request):
+    fa_path = request.param
+    return fa_path
 
+@pytest.mark.parametrize("test_data", [('data/test.fq',)], indirect=True)
 def test_FastqParser(test_data):
     num_A=0
     num_C=0
@@ -124,7 +141,12 @@ def test_FastqParser(test_data):
     pass
 
 
+@pytest.fixture
+def test_data(request):
+    fa_path = request.param
+    return fa_path
 
+@pytest.mark.parametrize("test_data", [('data/test.fq',)], indirect=True)
 def test_FastqFormat(test_data):
     parser_obj=FastqParser(test_data)
     file_lines = [record for record in parser_obj]
@@ -139,7 +161,7 @@ def test_FastqFormat(test_data):
     pass
 
 
-test_FastaParser('data/test.fa')
-test_FastaFormat('data/test.fa')
-test_FastqParser('data/test.fq')
-test_FastqFormat('data/test.fq')
+#test_FastaParser('data/test.fa')
+#test_FastaFormat('data/test.fa')
+#test_FastqParser('data/test.fq')
+#test_FastqFormat('data/test.fq')
